@@ -13,7 +13,7 @@ public class Doctor {
     private int id;
 
     private String name;
-
+    @Column(unique = true)
     private int tuition;
 
     private LocalDate created_At;

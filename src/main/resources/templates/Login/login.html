@@ -14,23 +14,27 @@
         <div class="col-md-8 mx-auto rounded border p-4 m-4">
             <form class="mt-4" method="post" enctype="multipart/form-data" th:object="${userDto}">
                 <div class="mb-3">
-                    <label class="form-label">Email address</label>
-                    <input type="email" class="form-control" th:field="${userDto.name}">
+                    <label class="form-label">
+                        <input type="email" class="form-control" th:field="${userDto.name}">
+                        Email address</label>
                     <p th:if="${#fields.hasErrors('name')}" th:errorclass="text-danger"
                        th:errors="${userDto.name}"></p>
+
                 </div>
                 <div class="mb-3">
-                    <label class="form-label">Password</label>
-                    <input type="password" class="form-control" th:field="${userDto.password}">
+                    <label class="form-label mb-3">
+                        <input type="password" class="form-control" th:field="${userDto.password}">
+                        Password</label>
                     <p th:if="${#fields.hasErrors('password')}" th:errorclass="text-danger"
                        th:errors="${userDto.password}"></p>
+
                 </div>
                 <button type="submit" class="btn btn-primary">Login</button>
 
 
             </form>
 
-                <!--<a class="btn btn-primary " href="/products">Login</a>-->
+            <!--<a class="btn btn-primary " href="/products">Login</a>-->
         </div>
     </div>
 </div>

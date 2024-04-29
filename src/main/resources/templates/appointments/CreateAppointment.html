@@ -23,7 +23,7 @@
                                type="date"
                                id="date"
                                min=""
-                               max="2999-12-31"
+                               max="2099-12-31"
                                step="1"
 
                         th:field="${appointmentDto.appointmentDate}">
@@ -36,6 +36,7 @@
                     <h4 class="col-sm-4">Doctor:</h4>
                     <div class="col-sm-4">
                         <select id="doctorSelect" class="form-select" th:field="${appointmentDto.doctorId}">
+                            <option value="">Select a doctor</option>
                             <option th:each="doctor : ${doctors}" th:value="${doctor.id}" th:text="${doctor.name}"
                             ></option>
                         </select>
@@ -48,6 +49,7 @@
                     <h4 class="col-sm-4" for="horas">Select a hour</h4>
                     <div class="col-sm-4">
                         <select id="horas" name="hora" class="form-select" th:field="${appointmentDto.appointmentTime}">
+                            <option value="">Select a time</option>
                         </select>
                         <p th:if="${#fields.hasErrors('appointmentTime')}" th:errorclass="text-danger"
                            th:errors="${appointmentDto.appointmentTime}"></p>
@@ -75,9 +77,9 @@
 
                 <div class="row">
                     <div class="offset-sm-4 col-sm-4 d-grid" >
-                        <button class="btn btn-primary" type="submit" onclick="confirmation()">Submit</button>
+                        <button class="btn btn-primary" type="submit" onclick="return confirmation()">Submit</button>
                     </div>
-                    <div class="col-sm-4 d-grid" >
+                    <div class="col-sm-4 d-grid">
                         <a href="/appointments" class="btn btn-outline-primary" role="button">Cancel</a>
                     </div>
                 </div>
@@ -137,7 +139,7 @@
                         selectHoras.innerHTML = "";
                         var currentHour = new Date().getHours();
                         if(selectedDate==document.getElementById('date').min){
-                            var currentHour = new Date().getHours();
+                            currentHour = new Date().getHours();
                             var currentMinute = new Date().getMinutes();
                             currentHour = currentMinute>=1?currentHour+1:currentHour;
                             currentHour = Math.max(currentHour, 10);
@@ -146,7 +148,7 @@
                         }
 
 
-                        for (var i = 10 ; i < 18; i++) {
+                        for (var i = currentHour ; i < 18; i++) {
                             var hora = (i < 10 ? "0" : "") + i + ":00";
                             if (!horasRegistradas.includes(hora)) {
                                 var option = document.createElement("option");
@@ -167,70 +169,3 @@
 </script>
 </body>
 </html>
-
-
-<!--
-<h2>Formulario de Reserva de Horas</h2>
-    <form action="" method="post">
-        <label for="nombre">Nombre:</label><br>
-        <input type="text" id="nombre" name="nombre"><br><br>
-        <label for="horas">Seleccione una hora:</label><br>
-        <select id="horas" name="hora"></select><br><br>
-        <input type="submit" value="Reservar">
-    </form>
-
-
-
-     <script th:inline="javascript">
-         //var selectedDate;
-         //document.getElementById('date').addEventListener('change', function() {
-         //    selectedDate = this.value;
-         //});
-         document.getElementById('doctorSelect').addEventListener('change', function() {
-             var doctorId = this.value;
-             var getDoctor = new XMLHttpRequest();
-             getDoctor.open('GET', '/doctor?id=' + doctorId , true);
-             getDoctor.onreadystatechange = function() {
-                 if (getDoctor.readyState === 4 && getDoctor.status === 200) {
-                     var doctors = JSON.parse(getDoctor.responseText);
-                     var getAppointment = new XMLHttpRequest();
-                     getAppointment.open('GET','/appointment?id='+doctorId+'&date=' + selectedDate,true);
-                     getAppointment.onreadystatechange = function() {
-                         if (getAppointment.readyState === 4 && getAppointment.status === 200) {
-                             var appointments = JSON.parse(getAppointment.responseText);
-                             updateTable(doctors, appointments);
-                         }
-                     };
-                     getAppointment.send();
-                 }
-             };
-             getDoctor.send();
-         });
-
-         function updateTable(doctors, appointments) {
-             var tableBody = document.getElementById('appointmentsTable').getElementsByTagName('tbody')[0];
-             while (tableBody.firstChild) {
-                 tableBody.removeChild(tableBody.firstChild);
-             }
-             appointments.forEach(function(appointment) {
-                 var row = tableBody.insertRow();
-                 row.insertCell().textContent = appointment.id;
-                 row.insertCell().textContent = doctors.name;
-                 row.insertCell().textContent = appointment.appointment_date;
-                 row.insertCell().textContent = formatAppointmentTime(appointment.appointment_time);
-                 row.insertCell().textContent = appointment.patient;
-                 row.insertCell().textContent = appointment.email;
-             });
-         }
-
-         function formatAppointmentTime(timeString) {
-             var time = new Date("2000-01-01T" + timeString + "Z");
-             var options = {
-                 hour: '2-digit',
-                 minute: '2-digit',
-                 timeZone: 'UTC'
-             };
-             var formattedTime = time.toLocaleTimeString([], options);
-             return formattedTime;
-         }
-     </script>-->

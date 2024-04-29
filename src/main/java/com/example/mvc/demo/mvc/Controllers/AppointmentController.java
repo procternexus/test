@@ -40,8 +40,8 @@ public class AppointmentController {
 
     @PostMapping("/create")
     public String registerAppointment(@Valid @ModelAttribute AppointmentDto appointmentDto, BindingResult result, Model model){
-        if (appointmentDto.getAppointmentTime() == null) {
-            result.addError(new FieldError("appointmentDto", "appointmentTime", ""));
+        if (appointmentDto.getDoctorId().equals("")) {
+            result.addError(new FieldError("appointmentDto", "doctorId", ""));
         }
 
         if (result.hasErrors()) {

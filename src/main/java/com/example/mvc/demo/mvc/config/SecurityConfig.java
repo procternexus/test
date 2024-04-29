@@ -11,24 +11,25 @@ import static org.springframework.security.config.Customizer.withDefaults;
 
 @Configuration
 @EnableWebSecurity
-public class config {
+public class SecurityConfig {
+
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http)
             throws Exception {
 
         return http
-
                 .authorizeHttpRequests(auth -> {
                     auth
 
                             .requestMatchers(HttpMethod.POST).permitAll()
-                            .requestMatchers(HttpMethod.GET).permitAll()
+                            //.requestMatchers(HttpMethod.GET).permitAll()
                             .anyRequest().permitAll();
                 })
                 .oauth2Login(withDefaults())
                 .formLogin(withDefaults())
                 .build();
     }
-}
 
+
+}
