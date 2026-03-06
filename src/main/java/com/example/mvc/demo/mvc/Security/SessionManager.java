@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class SessionManager {
-    private static SessionManager instance;
+    /*private static SessionManager instance;
     private Map<String, Object> sessionData;
 
     private SessionManager() {
@@ -28,5 +28,5 @@ public class SessionManager {
 
     public void removeAttribute(String key) {
         sessionData.remove(key);
-    }
+    }*/
 }
