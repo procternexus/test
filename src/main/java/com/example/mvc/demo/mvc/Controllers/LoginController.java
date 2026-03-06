@@ -3,7 +3,7 @@ package com.example.mvc.demo.mvc.Controllers;
 
 import com.example.mvc.demo.mvc.Models.*;
 import com.example.mvc.demo.mvc.Repositories.UserRepository;
-import com.example.mvc.demo.mvc.Security.SessionManager;
+//import com.example.mvc.demo.mvc.Security.SessionManager;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -40,8 +40,8 @@ public class LoginController {
         if(user!=null){
             user.setStatus(1);
             userRepository.save(user);
-            SessionManager sessionManager = SessionManager.getInstance();
-            sessionManager.setAttribute("name",user.getName());
+            //SessionManager sessionManager = SessionManager.getInstance();
+            //sessionManager.setAttribute("name",user.getName());
             return "redirect:/appointments";
         }else{
             result.addError(new FieldError("userDto","name","user not exists"));
